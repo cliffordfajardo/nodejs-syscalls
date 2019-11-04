@@ -1,0 +1,9 @@
+{
+  "name": "eventloopclass",
+  "version": "0.0.0",
+  "dependencies": {
+    "@types/node": "^10.0.0",
+    "syscalls": "1.0.6"
+  },
+  "devDependencies": {}
+}

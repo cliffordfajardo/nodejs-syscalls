@@ -211,8 +211,28 @@ A way for you to connect to a different machine or also a way to communicate acr
 Client        Accepting
 Socket  ----   Socket
 173.x           18.xx:PORT
-
+```
 
 
 What your seeing is the absolute basics and core essentials of any unix server. 
 All the servers you use on the web are all based on those 4 syscalls: socket, bind, listen, accept
+
+
+
+
+
+
+
+# Non-blocking
+Now that we're familiar with IO in a synchronous style, we're going to learn about non-blocking IO, which
+is the core of the node's event loop.  All system calls that play with the IO object are blocking.
+
+See `examples/` folder.
+
+IO Multiplexing backends
+- `select` ... simplest and most mortable, but the slowest one out of them all. `epoll` is fast used on linux (nginx)
+- `poll`
+- `epoll` linux
+- `kqueue` (BSD, MacOSX)
+
+Event loop code typically have lots of code because of the multiple sync multiplexing are diff.

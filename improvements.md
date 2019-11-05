@@ -1,7 +1,11 @@
 - convert to ES6 (separate branch)
 
 # Preface to students
-- increase mental model
+- increase mental model of how systems work
+- you'll never look at code the same, picking up a new languages and systems will be easier. 
+
+
+# How to approach exercise
 - when doing exercises, attempt it even if its the most hackiest code. Don't trick yourself..struggle
   and then when you view it your brain will have a reference point to correct.
   Advise dont just passively accept my solutions.

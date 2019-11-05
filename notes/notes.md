@@ -142,7 +142,7 @@ You often won't see these functions because they're abstracted from you.
 
 
 
-### Documentations
+### Documentation
 
 ```
 man 2 socket
@@ -188,3 +188,31 @@ int main(int argc, char const *argv[]) {
 
 # Exercise time
 1. Create a module called io.js to get familiar with syscalls
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Sockets & Server
+There's no difference with read/writing from a socket and file. They use the same syscalls. This is why people say (everything is a file).
+
+### What are sockets
+A way for you to connect to a different machine or also a way to communicate across proccesses.
+
+```
+Client        Accepting
+Socket  ----   Socket
+173.x           18.xx:PORT
+
+
+
+What your seeing is the absolute basics and core essentials of any unix server. 
+All the servers you use on the web are all based on those 4 syscalls: socket, bind, listen, accept

@@ -104,3 +104,16 @@ fcntl
 
 
 https://medium.com/@fun_cuddles/opening-files-in-node-js-considered-harmful-d7de566d499f
+
+
+
+
+
+
+
+
+
+### Exercise 4
+- `connect` doesn't return the correct values
+
+Have students create a super basic client, dont even mention curl. For the solution walk through implementing curl.

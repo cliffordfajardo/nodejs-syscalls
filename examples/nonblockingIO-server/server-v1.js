@@ -13,6 +13,7 @@ const config = {
 }
 
 const ACCEPTING_FD = syscalls.socket(syscalls.AF_INET, syscalls.SOCK_STREAM, 0); // Create an IPV4 TCP socket
+syscalls.fcntl(ACCEPTING_FD, syscalls.F_SETFL, syscalls.O_NONBLOCK)
 syscalls.bind(ACCEPTING_FD, config.port, config.address)
 syscalls.listen(ACCEPTING_FD, config.backlog_limit)
 

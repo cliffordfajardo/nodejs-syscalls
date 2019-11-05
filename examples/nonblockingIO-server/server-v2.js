@@ -25,6 +25,7 @@ const config = {
 }
 
 const ACCEPTING_FD = syscalls.socket(syscalls.AF_INET, syscalls.SOCK_STREAM, 0); // Create an IPV4 TCP socket
+syscalls.fcntl(ACCEPTING_FD, syscalls.F_SETFL, syscalls.O_NONBLOCK);             // make sockets async
 syscalls.bind(ACCEPTING_FD, config.port, config.address)
 syscalls.listen(ACCEPTING_FD, config.backlog_limit)
 
@@ -39,6 +40,10 @@ while(true) {
   
   // SYNC wait for `ACCEPTING_FD` to be ready
   const fds = syscalls.select([ACCEPTING_FD],[], []);
+
+  /**
+   * You could call `fcntl` on this socket too, but its useless since the flag is inherited by other Fd's
+   */
   const CONNECTION_FD = syscalls.accept(ACCEPTING_FD);    // normally this blocks..in async...it normall errors....only accept when `select` notifies us that we're ready/
   syscalls.write(STD_OUT, `Accepted a new connection.\n`);
 
@@ -52,6 +57,6 @@ while(true) {
 
   //SYNC wait for connecting_FD to be write
   syscalls.select([], [CONNECTION_FD], []);
-  syscalls.write(CONNECTION_FD, "[CLIENT]: Response --> Bye.\n");
+  syscalls.write(CONNECTION_FD, "Bye.\n");
   syscalls.close(CONNECTION_FD)
 }

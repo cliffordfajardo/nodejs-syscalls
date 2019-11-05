@@ -236,3 +236,10 @@ IO Multiplexing backends
 - `kqueue` (BSD, MacOSX)
 
 Event loop code typically have lots of code because of the multiple sync multiplexing are diff.
+
+
+
+# The point of Select
+Gives us lightweight concurrency (multi-tasking) without using threads etc.
+
+Endded at 2:55ish..

@@ -1,3 +1,4 @@
+// TODO Fix this file so it doesn't mention `fcntl`
 const syscalls  = require('syscalls');
 
 const STD_OUT = 1;

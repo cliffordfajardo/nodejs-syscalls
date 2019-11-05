@@ -46,10 +46,8 @@ dns.lookup(host, function(error, ip_address){
   syscalls.write(STD_OUT, `DNS LOOKUP SUCCESSFUL\n\n`);
   
   syscalls.connect(client_FD, 80, ip_address);
-  syscalls.write(client_FD, curl_request_header); // Now that we've established a connection, send the server a request so it can respond.
+  syscalls.write(client_FD, curl_request_header); // Send the server a request, so it can respond back.
 
-  // const data = syscalls.read(client_FD, BYTES_TO_READ)
-  // stream the data in chunks
   let data;
   do {
     data = syscalls.read(client_FD, BYTES_TO_READ)

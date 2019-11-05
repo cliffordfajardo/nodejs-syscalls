@@ -5,6 +5,9 @@
 - you'll never look at code the same, picking up a new languages and systems will be easier. 
 
 
+# Outcomes
+- understand syscalls and how we interact with the operating system everyday.....`dtrace` is one way we could trace syscalls....maybe add this additonal info.
+
 # How to approach exercise
 - when doing exercises, attempt it even if its the most hackiest code. Don't trick yourself..struggle
   and then when you view it your brain will have a reference point to correct.
@@ -69,7 +72,7 @@ This may not be super useful to python programmers
 
 
 
-# Node JS equivalents Table (node - syscalls - c)
+# Node JS equivalents Table (node - syscalls - c): http://asm.sourceforge.net/syscall.html#p31
 fs.open   -> syscalls.open  ->
 fs.close  -> syscalls.close ->
 fs.read   -> syscalls.read  ->
@@ -97,6 +100,7 @@ socket.bind     -> syscalls.bind    -> bind (only exposed to UDP I think in Node
 
 child_process.fork  -> syscalls.fork -> fork
 
+
 fcntl
 ??????    syscalls.fcntl -> fcntl
 
@@ -107,13 +111,20 @@ https://medium.com/@fun_cuddles/opening-files-in-node-js-considered-harmful-d7de
 
 
 
+# Read confusion
+when reading the man pages, I see this: read(int fildes, void *buf, size_t nbyte), but syscalls.read from the course skips 1 arg: `syscalls.read(STD_IN, BYTES_TO_READ);`
+Update to more closely match RL?
 
-
-
-
+# Test compilation on Mac/Windows/Linux?
+- can web assembly solve this?
 
 
 ### Exercise 4
 - `connect` doesn't return the correct values
 
 Have students create a super basic client, dont even mention curl. For the solution walk through implementing curl.
+
+
+
+### Exercise 5 - modify client to be non-blocking confusion...
+- we need to use fcntl on clientw...maybe a better transition. I got confused

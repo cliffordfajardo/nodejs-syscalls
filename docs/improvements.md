@@ -150,3 +150,15 @@ How can I make this closely mimic coding in C?
 const fd = syscalls.socket(syscalls.AF_NET, syscalls.SOCK_STREAM, 0);
 syscalls.fcntl(fd, syscalls.F_SETFL, syscalls.O_NONBLOCK)
 ```
+
+
+
+
+
+
+
+
+
+
+A lot of times, I was trying to visualize the process of all the socket events... I should draw a tree for reference and put description on it. 
+If I had these thoughts with my background, imagine students without my background.

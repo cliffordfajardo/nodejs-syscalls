@@ -10,7 +10,7 @@ const STD_OUT = 1;
 /********************************************************
 * Setup simple chat server
 ********************************************************/
-const acceptFd = syscalls.socket(syscalls.AF_INET, syscalls.SOCK_STREAM, 0)
+const acceptFd = syscalls.socket(syscalls.AF_INET, syscalls.SOCK_STREAM, 0);
 syscalls.fcntl(acceptFd, syscalls.F_SETFL, syscalls.O_NONBLOCK)
 syscalls.bind(acceptFd, 3000, "0.0.0.0")
 syscalls.listen(acceptFd, 100)
@@ -23,8 +23,8 @@ const users = []; // FDs
  * @returns {Number}
  */
 function accept() {
-  const userFd = syscalls.accept(acceptFd)
-  users.push(userFd)
+  const userFd = syscalls.accept(acceptFd); // grab a socket from the queue.
+  users.push(userFd);
   console.log("User connected on FD: " + userFd)
   syscalls.write(userFd, "Welcome!\n")
   return userFd

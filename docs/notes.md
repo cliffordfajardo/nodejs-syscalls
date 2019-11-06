@@ -242,4 +242,12 @@ Event loop code typically have lots of code because of the multiple sync multipl
 # The point of Select
 Gives us lightweight concurrency (multi-tasking) without using threads etc.
 
-Endded at 2:55ish..
+
+
+
+
+# Building a Chat Server
+Why are we buiilding a chat server?
+- build a server that handles multiple connections at once
+- build a server that can broadcast messages to ALL connected clients (*guess...we'll need to create a pool of connected clients)
+- opportunity to use select on reads, writes

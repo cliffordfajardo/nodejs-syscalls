@@ -1,3 +1,7 @@
+# TODO
+TODO
+- consilitate this with Notes.md
+
 # Class Notes
 
 ### Part 1

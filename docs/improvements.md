@@ -128,3 +128,25 @@ Have students create a super basic client, dont even mention curl. For the solut
 
 ### Exercise 5 - modify client to be non-blocking confusion...
 - we need to use fcntl on clientw...maybe a better transition. I got confused
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+How can I make this closely mimic coding in C?
+
+```js
+// Does AF_NET come in it's own package in C?
+// Does SOC_STREAM have it's own package or did marc create this for readability purposes.
+const fd = syscalls.socket(syscalls.AF_NET, syscalls.SOCK_STREAM, 0);
+syscalls.fcntl(fd, syscalls.F_SETFL, syscalls.O_NONBLOCK)
+```

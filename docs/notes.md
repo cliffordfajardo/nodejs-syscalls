@@ -470,3 +470,62 @@ This is the problem with IO operations with threads in most languages. This is h
 ### Event Loop Servers
 With evented IO servers we block the event loop by having callbacks that take too much time
 <img src="./event-loop-server.jpg"/>
+
+
+
+
+
+### Scaling your node application to run across multiple processors (parallelism sort of)
+- Spawn a new instance of Node per CPU (that means 4 event loops)
+Oveview of proccessess in Unix systems...
+
+```
+> node server.js
+
+> ps 
+  PID tty         TIME      CMD
+  101 ttys001     0:00.06   node server.js
+```
+
+Basic production setup (Ex: start 3 servers on 3 diff ports)
+and put Put ngxin infront of these servers to load balance
+
+```
+node http_server.js --port 3000 &
+node http_server.js --port 3001 &
+node http_server.js --port 3002 &
+```
+
+
+# Load balancing at the operating system level using `fork` syscall.
+creates a copy of a process, which creates a child proccess (still spreading across CPU's)
+
+We're going to transform our `http_server` to a pre-fork server....its called this because it forks before a new connection.
+Forking a process is time consuming...do it at the beginning!
+
+```
+               fork() - WORKER (1 node process w/event loop)
+listen() --->  fork() - WORKER (1 node process w/event loop)
+ MASTER        fork() - WORKER (1 node process w/event loop)
+```
+
+The only thing that's shared between parent & child...is the file descriptior. Child has the same FD as parent.
+If i open a file before calling `fork` and then fork, the child processes share the same file descriptor.
+
+
+
+
+
+
+
+
+
+# Last exercise (eval server)
+implement a server that will accept connections `read,fork,eval(read_bytes)` in the child process and back the result
+in the client
+
+
+# resources
+learnboost.github.com/cluser -- cli tool for prefork server without any modifying code 
+nodejs.org/api/cluster.html -- Node js cluster is for managing a bunch of proccesses in node.
+Cluster module is a great `pre-fork` tool.

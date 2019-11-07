@@ -1,3 +1,6 @@
+# refactor so its easy to go back and read clean modern code....fully self-contained examples with readme instructions for each folder
+
+
 - convert to ES6 (separate branch)
 
 # Preface to students

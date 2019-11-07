@@ -18,7 +18,7 @@ HttpServer.prototype.start = function() {
 
   loop.on(this.fd, 'read', function() {
     try {
-      const connFd = syscalls.accept(self.fd)
+      var connFd = syscalls.accept(self.fd)
     } catch(e) {
       // Another worker accepted the connection      
     }

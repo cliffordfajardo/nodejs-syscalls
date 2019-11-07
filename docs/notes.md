@@ -391,3 +391,82 @@ function run(){
   }
 }
 ```
+
+
+
+
+
+
+# Web server
+Web server (if your using HTTP protocol its an HTTP server, you might have a DNS server or something else)
+
+```
+CLIENT <----------PROTOCOL------------> SERVER
+```
+
+Layers of a webserver typically (email server, chat server etc)
+
+```
+REQUEST PARSER: parse the incoming data (bytes of data) that's coming to us. Parse it, transform it to an object that we as programmers can extract meaning from it.
+    |
+SCHEDULER: distribute the work between the load of all connections. In our case, its the event loop, which is in charge of managing the connections.
+    |
+Connection(s)
+    |
+Response Encoder: Write back to the socket.
+```
+
+
+
+
+
+
+
+
+# If we used threads along the event loop would we get better perf? (No, overhead of context switching)
+usually no because when you have lots of threads (....1 per connection), the thread scheduler needs to switch context
+AKA save all the local variables about the current context........not super expensive but if we have lots of connections
+there's a lot of context switching........its like in real life if we're switching contexts too much not very effective.
+
+
+For python, ruby and other languages which have a **global interpreter lock prevents 2 threads from running exactly at the same time**
+there is no parallism.
+
+
+###  When would we introduce threads
+If you have large chunks of code in some callbacks, it would allow those callbacks to be split ...spread execution time more evenly...
+
+
+
+
+
+
+### Thread servers
+#### Thread Preemptive (recall that this is to prevent from 1 thread from hogging the system.)
+The interpreter/your language can interrupt a task at any time without the task knowing its being interruped.
+If you've threads you know the code in the thread can be paused/resumed at any time and you don't need to do that at any time. 
+We have no control over our thread switches, the thread scheduler manages that. Premptive threading!
+
+
+
+This is how thread based servers would handle 2 concurrent 2 connections. Most thread schedulers work like this (ex: ruby/python).
+They will only run 1 piece of code at a time b/c of the **global interpreter lock (only allows 1 thread to execute at a time)**.
+<img src="./premptive-threads1.jpg"/>
+Quantum refers to the time slicing interval that we give to each of those threads. Languages have different time slices.
+So we might run for 10ms and then switch halfway and go to socket 7 and then back to 6.
+
+
+Lets say once we get back to socket 6 we go a `read` call in the middle of the alloted time...we're just going to wait for the data to arrive
+in the remaining time....lets say it doesnt arrive, we switch to socket 7, go back to socket 6....still waiting for data....go back to 7....
+then go back to 6 later. The data could have arrived in socket 7's time slice, but we had to wait for the thread scheduler to
+schedule us back on.
+<img src="./preemptive-thread2.jpg"/>
+
+This is the problem with IO operations with threads in most languages. This is how a thread server works (Apache)
+
+  
+
+
+### Event Loop Servers
+With evented IO servers we block the event loop by having callbacks that take too much time
+<img src="./event-loop-server.jpg"/>

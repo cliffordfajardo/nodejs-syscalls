@@ -94,11 +94,11 @@ function run(){
     const writeable_fds = fds[1];
   
     readable_fds.forEach((fd) => {
-      const callback = callbacks[fd];
+      const callback = callbacks.read[fd];
       callback();
     });
     writeable_fds.forEach((fd) => {
-      const callback = callbacks[fd];
+      const callback = callbacks.write[fd];
       callback();
     });
 

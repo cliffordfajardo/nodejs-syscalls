@@ -28,3 +28,7 @@ Link it to my other repo.
 Try to implement it on your own then view resources. FAIL FORWARD FIRST to build a foundation for comparing, contrasting & improving later.
 - https://github.com/streamich/libjs
 - https://github.com/streamich/libsys
+
+
+
+What is the async hooks module and how do I use it? Small example... I often get booted inside there when debuggin

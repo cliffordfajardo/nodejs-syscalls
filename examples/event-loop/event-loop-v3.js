@@ -17,13 +17,10 @@
 ******************************************************************************/
 const syscalls = require('syscalls');
 const callbacks = {
-  read: {
-    //fd: callback
-  },
-  write: {
-    //fd: callback
-  }
+  read:  {/*fd: callback, ...*/},
+  write: {/*fd: callback, ...*/}
 };
+
 
 
 
@@ -35,11 +32,21 @@ const callbacks = {
  * @param {Function} callback 
  * @returns {void}
  * @example
- * loop.on(fd, `read`, function(){})
+ * loop.on(fd, `read/write`, function(){})
  */
 function on(fd, event, callback) {
   callbacks[event][fd] = callback;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -59,6 +66,20 @@ function remove(fd, event) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const timers = [];
 /**
  * 
@@ -72,6 +93,10 @@ function setTimeout(callback, milliseconds) {
   });
 }
 
+
+
+
+
 let next_ticks = [];
 /**
  * Add a function to be immediately run after the next iteration of the event loop.
@@ -81,6 +106,16 @@ let next_ticks = [];
 function nextTick(callback) {
   next_ticks.push(callback);
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -114,11 +149,11 @@ function run(){
  
   
     readable_fds.forEach((fd) => {
-      const callback = callbacks[fd];
+      const callback = callbacks.read[fd];
       callback();
     });
     writeable_fds.forEach((fd) => {
-      const callback = callbacks[fd];
+      const callback = callbacks.write[fd];
       callback();
     });
 
@@ -137,6 +172,10 @@ function run(){
     })
   }
 } 
+
+
+
+
 
 
 

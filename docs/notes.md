@@ -251,3 +251,143 @@ Why are we buiilding a chat server?
 - build a server that handles multiple connections at once
 - build a server that can broadcast messages to ALL connected clients (*guess...we'll need to create a pool of connected clients)
 - opportunity to use select on reads, writes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Day 2
+- **Refactor chat server**
+  - extract some code out and move it into a new module called event loop
+- 
+**Create our async IO event loop library we can import in our server's code**
+  - add support for write support for event loop
+  - add 2 extra features to event loop library that usually come with real event loop libraries.
+    - implement timers, think `setTimeout`)
+    - implement `nextTick`
+
+- **Create a concurrent web server**
+  - create parser and other relevenat parts,
+
+- **Blocking/unblocking event loop**
+  - See how we can block the event loop and unblock it for learning purposes
+
+- Proccesses:
+  - not directly related to the event loop, but processes can help us run our event loop on multiple cores.
+  - By default nodejs runs in 1core/1process, we want to take advantage of multiple proccesses.
+
+
+
+### Reactor Design Pattern
+Used in event loop libraries.
+React to some `read/write/error..etc` events & execute a callback.
+
+```
+        Events
+REACTOR /
+        \
+        Callbacks
+```
+
+Example of pattern in use from real code from browser and server land.
+
+```js
+// UI
+$(`#button`).click(() => {/**/})
+
+
+
+
+//server
+http.createServer(function handleRequest(request, response)=> {
+  response.writeHead(200, {`Content-Type`: `text/plain`})
+  response.end(`Hello World\n`);
+})
+.listen(1337, `127.0.0.1`);
+```
+
+
+
+
+
+# Adding Timers to Our Event loop
+After finishing `event-loop-v1` and using it in `chat-server-v3.js` we're now going to add another feature to our event loop.
+So far we've added the most common features of an event loop: 
+- registering/removing events.
+
+But event loop libraries do much more than being able to watch file descriptors, most event loop libraries support timers.
+In native javascript you can declare timers this way:
+
+```js
+setTimeout(() => {
+  console.log(`I'll print 1 sec later`);
+}, 1000)
+```
+
+We're actually going to implement this functionality in our event loop-library.
+How? At each turn in the event loop, we will check if there are any timers due, if so we'll a callback.
+
+
+
+
+# Reasons why timers are not 100% accurate:
+This problem is occurs in every event library system.
+```js
+/**
+ * Starts the event loop explicitly as we are using our own event loop & not the one from Node.
+ * 
+ * What do you mean by the statement above? 
+ *  If we we're using the built in modules/functions (API's) that are part of node, they abstract from us the event loop.
+ * @returns {void}
+ * @example
+ * event_loop.run();
+ */
+function run(){
+  while (true) {
+    const fds = syscalls.select(Object.keys(callbacks.read), Object.keys(callbacks.write), []);
+    const readable_fds = fds[0];
+    const writable_fds = fds[1];
+  
+    readable_fds.forEach((fd) => {
+      const callback = callbacks[fd];
+      callback(); 
+    });
+    writeable_fds.forEach((fd) => {
+      const callback = callbacks[fd];
+      callback();
+    });
+
+    const time = new Date().getTime();
+    
+    // ❗❗❗❗ If a callback above takes 5s, 1m, etc of time to execute our timer will of course be delayed.
+    [...timers].forEach((timer) => {
+      if(time >= timer.timeout) { // is the timer due or overdue
+        timer.callback();
+        timers.splice(timers.indexOf(timer), 1); // since these are not interval timers, remove them once used.
+      }
+    })
+  }
+}
+```

@@ -162,3 +162,16 @@ syscalls.fcntl(fd, syscalls.F_SETFL, syscalls.O_NONBLOCK)
 
 A lot of times, I was trying to visualize the process of all the socket events... I should draw a tree for reference and put description on it. 
 If I had these thoughts with my background, imagine students without my background.
+
+
+
+
+on `eventloop-v1.js` used modern export syntax
+
+
+
+
+For `event-loop-{v1,v2}.js` provide students with more supplemental material/challenges on how to handle errors (using `select`s third array.)
+
+
+See the "Improvements" section at the top of `chat-server-v3.js`

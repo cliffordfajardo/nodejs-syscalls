@@ -1,3 +1,8 @@
+# Class exercise optimizations
+- have students work in pairs, talk out their approach and code
+
+
+-
 # refactor so its easy to go back and read clean modern code....fully self-contained examples with readme instructions for each folder
 
 
@@ -182,3 +187,7 @@ See the "Improvements" section at the top of `chat-server-v3.js`
 
 
 # Add `recv` for web sockets..
+
+
+
+https://unix.stackexchange.com/questions/3586/what-do-the-numbers-in-a-man-page-mean

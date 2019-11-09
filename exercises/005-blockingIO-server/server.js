@@ -1,5 +1,5 @@
 // TODO Fix this file so it doesn't mention `fcntl`
-const syscalls  = require('syscalls');
+const syscalls  = require('../010-http-server/node_modules/syscalls');
 
 const STD_OUT = 1;
 const BYTES_TO_READ = 1024;

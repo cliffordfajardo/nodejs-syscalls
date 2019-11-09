@@ -4,7 +4,7 @@
 
 // ❗❗❗ This is an example of play code, don't fork in the middle of your application for the most part, you should do it at the beginning like in the HTTP server
 const syscalls = require('syscalls')
-const loop = require('../event-loop/event-loop-v3.js')
+const loop = require('../../examples/event-loop/event-loop-v3.js')
 
 const fd = syscalls.socket(syscalls.AF_INET, syscalls.SOCK_STREAM, 0)
 syscalls.fcntl(fd, syscalls.F_SETFL, syscalls.O_NONBLOCK)

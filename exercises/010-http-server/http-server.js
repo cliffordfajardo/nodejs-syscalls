@@ -3,7 +3,7 @@ Most webservers follow this event loop type format EXCEPT thread based web serve
 They create a new thread for each connection...we don't use threads...we split our code into small callbacks
 */
 const syscalls = require('syscalls');
-const event_loop = require('../event-loop/event-loop-v3.js');
+const event_loop = require('../../examples/event-loop/event-loop-v3.js');
 const httpParser = require('../../exercise-solutions/http_parser')
 const STD_OUT = 1;
 

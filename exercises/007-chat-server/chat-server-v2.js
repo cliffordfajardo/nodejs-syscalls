@@ -6,7 +6,7 @@
 * - learn different way to structure things
 * - slwoly moving to adding callbacks to our system
 ********************************************************************************/
-const syscalls = require('syscalls')
+const syscalls = require('../010-http-server/node_modules/syscalls')
 const config = {
   port: 3000,
   host: "0.0.0.0",

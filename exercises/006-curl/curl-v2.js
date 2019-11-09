@@ -15,7 +15,7 @@
  *  3.Use the IP to connect to the server and listen for it's response.
  */
 const dns = require('dns');
-const syscalls = require('syscalls');
+const syscalls = require('../010-http-server/node_modules/syscalls');
 const STD_OUT = 1;
 const BYTES_TO_READ = 4000;
 

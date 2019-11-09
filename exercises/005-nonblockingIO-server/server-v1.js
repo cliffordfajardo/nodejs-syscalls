@@ -2,7 +2,7 @@
  * Non blocking server. Uses  `fcntl` to make the socket methods asynchronous.
  * However, when we make a socket async, it will keep emitting errors.
  */
-const syscalls  = require('syscalls');
+const syscalls  = require('../010-http-server/node_modules/syscalls');
 const STD_OUT = 1;
 const BYTES_TO_READ = 1024;
 
